@@ -25,4 +25,4 @@ class HTTPRequests(Request):
         temperature = tmp
         return temperature
 
-req = HTTPRequests()
+REQUEST = HTTPRequests()

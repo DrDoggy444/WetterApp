@@ -10,12 +10,13 @@ MAINWINDOW.geometry(screenReso)
 CityInputtext = Text(MAINWINDOW,height=1, width=10)
 CityInputtext.place(x=350, y= 200)
 
-
+def getInput():
+    CityInputtext.get(1.0, END)
 ##ButtonSetup
 def okOnClick(*args, method): #OnKlick-Event für main
     method(args)
 ok = ttk.Button(MAINWINDOW, text='ok',command=okOnClick)
 ok.place(x= 500, y= 500)
 
-
-MAINWINDOW.mainloop()
+def startUp():
+    MAINWINDOW.mainloop()
