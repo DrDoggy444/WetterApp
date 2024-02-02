@@ -12,8 +12,8 @@ CityInputtext.place(x=350, y= 200)
 
 
 ##ButtonSetup
-def okOnClick(): #OnKlick-Event für main
-    print(CityInputtext.get(1.0, END))
+def okOnClick(*args, method): #OnKlick-Event für main
+    method(args)
 ok = ttk.Button(MAINWINDOW, text='ok',command=okOnClick)
 ok.place(x= 500, y= 500)
 
