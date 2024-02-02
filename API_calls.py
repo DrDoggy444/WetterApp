@@ -20,10 +20,9 @@ class HTTPRequests(Request):
     def getCurrentWeather(self, city):
         response = request('GET',self.url + '/current.json', headers = self.headers, params={'q' : city})
         tmp = response.text
-        i = tmp.find('temp_c') + 8 #substring finden
-        temperature = tmp[i:i+4]+'°C'
+        i = tmp.find('temp_c') + 8 # "find" nimmt nur den ersten Index als Ergebniss --> i + 8 um Wert zu finden
+        tmp = tmp[i:i+4].replace(',','') + '°C'
+        temperature = tmp
         return temperature
 
-test = HTTPRequests()
-print(test.CheckOnlineStatus())
-print(test.getCurrentWeather('Paderborn'))
+req = HTTPRequests()
