@@ -4,20 +4,28 @@ import API_calls
 #Window Setup
 MAINWINDOW = Tk(screenName= 'mainWindow',className='WetterApp')
 #screenReso = str(MAINWINDOW.winfo_screenwidth()) + 'x' + str(MAINWINDOW.winfo_screenheight())
-screenReso = '800x600'
+screenReso = '800x400'
 MAINWINDOW.geometry(screenReso)
 
 ##TextfelderSetup
-CityInputtext = Text(MAINWINDOW,height=1, width=10)
-CityInputtext.place(x=350, y= 200)
+CityInputtext = Text(MAINWINDOW,height=1, width=20)
+CityInputtext.place(x=150, y= 100)
 
-def getInput():
-    CityInputtext.get(1.0, END)
+
+    
 ##ButtonSetup
 def okOnClick(): #OnKlick-Event für main
-    print(API_calls.call.getCurrentWeather(getInput()))
+    Inputcity =  CityInputtext.get(1.0, END)
+    print(API_calls.call.getCurrentWeather(city= Inputcity))
 ok = ttk.Button(MAINWINDOW, text='ok',command=okOnClick)
-ok.place(x= 500, y= 500)
+ok.place(x= 350, y= 99)
+
+
+#customShapes
+
+IsOnline = Canvas(MAINWINDOW,height=50,width=40)
+IsOnline.grid()
+IsOnline.create_oval(1,1,40,40,fill='green',state='disabled')
 
 
 MAINWINDOW.mainloop()
