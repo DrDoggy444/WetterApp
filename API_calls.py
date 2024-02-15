@@ -1,7 +1,6 @@
 from requests import *
-#Konstanten
-BASE_URL = 'http://api.weatherapi.com/v1'
-API_KEY = '6668ee1162af454fa6f65814231512'
+
+
 
 class HTTPRequests(Request):
     """Dieses Modul ist um Abfragen von Wetterdaten von api.weatherapi.com gedacht\n 
@@ -10,6 +9,10 @@ class HTTPRequests(Request):
     Zur Verfügung stehende Funktionen:
     :CheckOnlineStatus() --> Ist der Service verfügbar?
     :getCurrentWeather(city) --> gibt die aktuelle °C für die angegebene Stadt zurück"""
+    #Attribute
+    BASE_URL = 'http://api.weatherapi.com/v1'
+    API_KEY = '6668ee1162af454fa6f65814231512'
+
     def __init__(self, method=None, 
                  url=BASE_URL, headers={'key' : API_KEY}, ) -> None:
         super().__init__(method, url, headers)

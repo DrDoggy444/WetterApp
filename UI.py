@@ -10,17 +10,18 @@ MAINWINDOW.geometry(screenReso)
 
 ##TextfelderSetup
 CityInputtext = Text(MAINWINDOW,height=1, width=20)
-CityInputtext.place(x=150, y= 100)
+CityInputtext.place(x=220, y= 100)
 
 
     
 ##ButtonSetup
-def okOnClick(): #OnKlick-Event für main
-    Inputcity =  CityInputtext.get(1.0, END)
-    isOnline()
-    print(WeatherAPI.getCurrentWeather(city= Inputcity))
-ok = ttk.Button(MAINWINDOW, text='ok',command=okOnClick)
-ok.place(x= 350, y= 99)
+def ButtonOnClick(): #OnKlick-Event für main
+    if isOnline():
+        Inputcity =  CityInputtext.get(1.0, END)
+        celsius =  WeatherAPI.getCurrentWeather(city= Inputcity)
+        resultTable.insert('', END, values=( Inputcity, celsius))
+ok = ttk.Button(MAINWINDOW, text='Abfragen',command=ButtonOnClick)
+ok.place(x= 400, y= 99)
 
 
 #OnlineCheckVisual
@@ -29,13 +30,15 @@ IsOnline = Canvas(MAINWINDOW,height=50,width=40)
 IsOnline.grid()
 NoConnection = ttk.Label(MAINWINDOW)
 NoConnection.place(x=15,y=50)   
-def isOnline():
+def isOnline() -> bool:
     if WeatherAPI.CheckOnlineStatus():
         IsOnline.create_oval(10,10,40,40,fill='green',state='disabled')
         NoConnection.config(text='')
+        return True
     else: #keine Verbindung da
         IsOnline.create_oval(10,10,40,40,fill='red',state='disabled')
         NoConnection.config(text='Es konnte keine Verbindung zum Service aufgebaut werden.\nBitte das Programm neustarten')
+        return False
 
 
 
@@ -44,12 +47,18 @@ def isOnline():
 
 resultTable = ttk.Treeview(MAINWINDOW)
 resultTable.place(x=1, y=150,height=150,width=600)
-
-resultTable['columns'] = ('Temperatur')
-resultTable.column('Temperatur', width= 10)
-resultTable.heading('Temperatur', text='Temperatur')
-
-
+resultTable.column("#0", width = 0, stretch = "no") #Kinderkrankheit beseitigen(Leeres Spalte weg)
+#Stadt
+resultTable['columns'] = ('Stadt','Temperatur')
+resultTable.column('Stadt', width= 300, stretch= False)
+resultTable.heading('Stadt', text='Stadt',anchor=W)
+#Temp
+resultTable.column('Temperatur', width= 300, stretch= False)
+resultTable.heading('Temperatur', text='Temperatur',anchor=W)
+#Scrollbar
+scrollbar = ttk.Scrollbar(resultTable, orient="vertical", command=resultTable.yview)
+scrollbar.pack(side='right', fill='y')
+resultTable.configure(yscrollcommand=scrollbar.set)
 
 #Runtime
 isOnline()
