@@ -1,6 +1,6 @@
 # WetterApp
 
-Die Python WetterApp basiert auf API-Abfragen an die URL https://api.weatherapi.com über das http-Protokoll.
+Die Python WetterApp basiert auf API-Abfragen an die URL https://www.weatherapi.com/ über das http-Protokoll.
 Um die App nutzen zu können muss Python aufm dem Gerät installiert sein(https://www.python.org/)
 Anschließend müssen noch folgende Module per *pip install xxx* installiert werden("xxx" = Modul):
 
