@@ -22,7 +22,7 @@ class HTTPRequests(Request):
 
     def CheckOnlineStatus(self)-> bool:
         try:
-            response = request('GET',self.url + '/current.json', headers = self.headers, params={'q' : 'Paris'})
+            response = request('GET',self.url + '/current.json', headers = self.headers, params={'q' : 'Paris'},timeout=20)
         except:
             return False
         return (response.status_code == 200)

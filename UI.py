@@ -2,6 +2,7 @@ from  tkinter import *
 from tkinter import ttk
 from API_calls import WeatherAPI
 
+
 ##Window Setup
 MAINWINDOW = Tk(screenName= 'mainWindow',className='WetterApp')
 screenReso = '600x300'
@@ -34,6 +35,13 @@ def ButtonOnClick(): #OnKlick-Event für main
             inValidRequest.config(text='Für die angefragte Stadt existieren keine Wetterdaten!')
 ok = ttk.Button(MAINWINDOW, text='Abfragen',command=ButtonOnClick)
 ok.place(x= 400, y= 99)
+
+##KeyboardEvents
+def onKeyPress(event):
+    if event.char == '\r':
+       ButtonOnClick()
+       CityInputtext.delete('1.0',END)
+MAINWINDOW.bind('<KeyPress>',onKeyPress)
 
 
 ##OnlineCheckVisual
