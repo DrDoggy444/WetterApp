@@ -26,12 +26,26 @@ class HTTPRequests(Request):
             return False
         return (response.status_code == 200)
     
-    def getCurrentWeather(self, city):
+    def __getData(self,city):
+        """Hauptabfrage
+        :city = Stadt von der die Wetterdaten abgefragt werden sollen"""
         response = request('GET',self.url + '/current.json', headers = self.headers, params={'q' : city})
         tmp = response.text
+        return tmp
+    
+    def getCurrentWeather(self, city):
+        city = self.__getData(city)
         i = tmp.find('temp_c') + 8 # "find" nimmt nur den ersten Index als Ergebniss --> i + 8 um Wert zu finden
         tmp = tmp[i:i+4].replace(',','') + '°C' # xx.x°C, das Replace ist im Falle von einstelliger Gradzahl benötigt
         temperature = tmp
         return temperature
+    
+
+    def validRequest(self,response):
+        if response != '":{"°C':
+            return True
+        else:
+            return False
+
 
 WeatherAPI = HTTPRequests()
