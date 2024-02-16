@@ -5,6 +5,7 @@ Um die App nutzen zu können muss Python aufm dem Gerät installiert sein(https:
 Anschließend müssen noch folgende Module per *pip install xxx* installiert werden("xxx" = Modul):
 
 > *tkinter*. Eine der weitverbeitesten GUI-Libarys für Python-Programmierung
+
 > *requests*. Mit diesem Modul können in Python http-Befehle ausgeführt werden(GET,SET,POST,usw.)
 
 Das Installieren geht über die Kommandozeile(auch Terminal genannt).
