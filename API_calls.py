@@ -8,7 +8,8 @@ class HTTPRequests(Request):
          
     Zur Verfügung stehende Funktionen:
     :CheckOnlineStatus() --> Ist der Service verfügbar?
-    :getCurrentWeather(city) --> gibt die aktuelle °C für die angegebene Stadt zurück"""
+    :getCurrentWeather(city) --> gibt die aktuelle °C für die angegebene Stadt zurück
+    :validRequest() --> prüft die Abfrage,ob die Stadt in der Datenbank existiert"""
     #Attribute
     BASE_URL = 'http://api.weatherapi.com/v1'
     API_KEY = '6668ee1162af454fa6f65814231512'
@@ -33,19 +34,25 @@ class HTTPRequests(Request):
         tmp = response.text
         return tmp
     
-    def getCurrentWeather(self, city):
-        city = self.__getData(city)
+    def getCurrentWeather(self, tmp):
+        tmp = self.__getData(tmp)
         i = tmp.find('temp_c') + 8 # "find" nimmt nur den ersten Index als Ergebniss --> i + 8 um Wert zu finden
         tmp = tmp[i:i+4].replace(',','') + '°C' # xx.x°C, das Replace ist im Falle von einstelliger Gradzahl benötigt
         temperature = tmp
         return temperature
     
+    def getWindSpeeds(self, tmp):
+        tmp = self.__getData(tmp).partition('wind_kph')
+        i = tmp[2].find(':')+1
+        result = tmp[2][i:i+4].replace(',','') + ' km/h'
+        return result 
 
     def validRequest(self,response):
         if response != '":{"°C':
             return True
         else:
             return False
+
 
 
 WeatherAPI = HTTPRequests()
