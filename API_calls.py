@@ -1,5 +1,4 @@
 from requests import *
-from PIL import Image
 class HTTPRequests(Request):
     """Dieses Modul ist um Abfragen von Wetterdaten von api.weatherapi.com gedacht\n 
     Mit der Variable 'WeatherAPI' können dessen Funktionen genutzt werden.
@@ -26,7 +25,7 @@ class HTTPRequests(Request):
         return (response.status_code == 200)
     
     def __getData(self,city):
-        """Hauptabfrage
+        """Hauptabfrage, wird von allen weiteren Funktionen verwendet
         :city = Stadt von der die Wetterdaten abgefragt werden sollen"""
         response = request('GET',self.url + '/current.json', headers = self.headers, params={'q' : city})
         tmp = response.text
@@ -34,19 +33,20 @@ class HTTPRequests(Request):
     
     def getTemperatur(self, tmp):
         tmp = self.__getData(tmp)
-        i = tmp.find('temp_c') + 8 # "find" nimmt nur den ersten Index als Ergebniss --> i + 8 um Wert zu finden
+        i = tmp.find('temp_c') + 8 # "find" nimmt nur den ersten Index als Ergebniss --> i + 8 um richtigen Wert zu finden
         tmp = tmp[i:i+4].replace(',','') + '°C' # xx.x°C, das Replace ist im Falle von einstelliger Gradzahl benötigt
         temperature = tmp
         return temperature
     
     def getWindSpeeds(self, tmp):
-        tmp = self.__getData(tmp).partition('wind_kph')
-        i = tmp[2].find(':')+1
+        tmp = self.__getData(tmp).partition('wind_kph') #Partion unterteil ein String in 3 Bereichen. [0]= vor dem Pattern, [1] =  das Pattern selbst. [2]= nach dem Pattern
+        i = tmp[2].find(':')+1 
         result = tmp[2][i:i+4].replace(',','') + ' km/h'
         return result 
 
     def validRequest(self,response):
-        if response != '":{"°C':
+        """Funktion zum Abfangen von ungültigen Städten"""
+        if response != '":{"°C': 
             return True
         else:
             return False

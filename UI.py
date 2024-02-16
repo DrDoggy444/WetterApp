@@ -65,7 +65,7 @@ def isOnline() -> bool:
 resultTable = ttk.Treeview(MAINWINDOW)
 
 resultTable.place(x=1, y=130,height=180,width=600)
-resultTable.column("#0", width = 0, stretch = "no",) #Kinderkrankheit beseitigen(Leere Spalte weg)
+resultTable.column("#0", width = 0, stretch = "no",) #"Kinderkrankheit" beseitigen(Leere Spalte am Anfang weg)
 #Stadt
 resultTable['columns'] = ('Stadt','Temperatur','Wind','Bild')
 resultTable.column('Stadt', width= 250, stretch= False)
@@ -84,6 +84,7 @@ resultTable.configure(yscrollcommand=scrollbar.set)
 
 
 ##Runtime
+##Alle Konfigurationen für Events MÜSSEN vor .mainloop() passieren, da .mainloop() eine Dauerschleife bis Programmende ist
 isOnline()
 MAINWINDOW.resizable(0,0)
 MAINWINDOW.mainloop()
