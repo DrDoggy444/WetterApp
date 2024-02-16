@@ -1,5 +1,5 @@
 from  tkinter import *
-from tkinter import ttk
+from tkinter import ttk 
 from API_calls import WeatherAPI
 
 
@@ -7,6 +7,7 @@ from API_calls import WeatherAPI
 MAINWINDOW = Tk(screenName= 'mainWindow',className='WetterApp')
 screenReso = '600x300'
 MAINWINDOW.geometry(screenReso)
+MAINWINDOW.iconbitmap('./Ressources/WeatherApp.ico')
 
 ##TextfelderSetup
 CityInputtext = Text(MAINWINDOW,height=1, width=20)
@@ -20,13 +21,11 @@ inValidRequest = ttk.Label(MAINWINDOW)
 inValidRequest.place(x=220, y= 70)
 
 
-
 ##ButtonSetup
 def ButtonOnClick(): #OnKlick-Event für main
     if isOnline():
         Inputcity =  CityInputtext.get(1.0, END)
-
-        celsius =  WeatherAPI.getCurrentWeather(Inputcity)
+        celsius =  WeatherAPI.getTemperatur(Inputcity)
         windSpeed = WeatherAPI.getWindSpeeds(Inputcity)
         if WeatherAPI.validRequest(celsius):
             inValidRequest.config(text='')
@@ -37,8 +36,8 @@ ok = ttk.Button(MAINWINDOW, text='Abfragen',command=ButtonOnClick)
 ok.place(x= 400, y= 99)
 
 ##KeyboardEvents
-def onKeyPress(event):
-    if event.char == '\r':
+def onKeyPress(event): 
+    if event.char == '\r': #"Enter" abfangen
        ButtonOnClick()
        CityInputtext.delete('1.0',END)
 MAINWINDOW.bind('<KeyPress>',onKeyPress)
@@ -47,7 +46,7 @@ MAINWINDOW.bind('<KeyPress>',onKeyPress)
 ##OnlineCheckVisual
 
 IsOnline = Canvas(MAINWINDOW,height=50,width=40)
-IsOnline.grid()
+IsOnline.place(x=0, y=0)
 def isOnline() -> bool:
     if WeatherAPI.CheckOnlineStatus():
         IsOnline.create_oval(10,10,40,40,fill='green',state='disabled')

@@ -1,7 +1,5 @@
 from requests import *
-
-
-
+from PIL import Image
 class HTTPRequests(Request):
     """Dieses Modul ist um Abfragen von Wetterdaten von api.weatherapi.com gedacht\n 
     Mit der Variable 'WeatherAPI' können dessen Funktionen genutzt werden.
@@ -34,7 +32,7 @@ class HTTPRequests(Request):
         tmp = response.text
         return tmp
     
-    def getCurrentWeather(self, tmp):
+    def getTemperatur(self, tmp):
         tmp = self.__getData(tmp)
         i = tmp.find('temp_c') + 8 # "find" nimmt nur den ersten Index als Ergebniss --> i + 8 um Wert zu finden
         tmp = tmp[i:i+4].replace(',','') + '°C' # xx.x°C, das Replace ist im Falle von einstelliger Gradzahl benötigt
@@ -52,7 +50,7 @@ class HTTPRequests(Request):
             return True
         else:
             return False
-
+        
 
 
 WeatherAPI = HTTPRequests()
