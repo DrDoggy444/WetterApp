@@ -9,5 +9,5 @@ Anschließend müssen noch folgende Module per *pip install xxx* installiert wer
 > *requests*. Mit diesem Modul können in Python http-Befehle ausgeführt werden(GET,SET,POST,usw.)
 
 Das Installieren geht über die Kommandozeile(auch Terminal genannt).
-Diese kann man entweder in VisualStudioCode über *Terminal-->New Terminal* aufrufen oder per Windows-Ausführung(Windows-Taste + r) aufrufen
+Diese kann man entweder in VisualStudioCode über *Terminal-->New Terminal* aufrufen oder per Windows-Ausführung(Windows-Taste + r und "cmd" eingeben) aufrufen
 Anschließend gibt man beispielsweise *pip install tkinter* ein zum Installieren.
